@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 
 const Control = ({
   canvasRef,
-  platform }) => {
+  platform,}) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+
 
     const movePlatform = ({ key }) => {
       if (key === 'ArrowRight' && platform.x < canvas.width - platform.w)

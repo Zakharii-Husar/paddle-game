@@ -1,24 +1,24 @@
 import { useEffect } from 'react';
 
-function Ball({ canvasRef, ball, platform, changeDirection }) {
+function Ball({ canvasRef, ball, platform, ballDirection }) {
 
     useEffect(() => {
         const canvas = canvasRef.current;
 
         const detectColision = () => {
             //hitting right
-            if (ball.x + ball.r === canvas.width) changeDirection('rightUp', 'leftUp', 'leftDown');
+            if (ball.x + ball.r === canvas.width) ballDirection('rightUp', 'leftUp', 'leftDown');
             //hitting left
-            if (ball.x === ball.r) changeDirection('leftUp', 'rightUp', 'rightDown');
+            if (ball.x === ball.r) ballDirection('leftUp', 'rightUp', 'rightDown');
             //hitting top
-            if (ball.y === ball.r) changeDirection('rightUp', 'rightDown', 'leftDown');
+            if (ball.y === ball.r) ballDirection('rightUp', 'rightDown', 'leftDown');
             //hitting bottom
-            if (ball.y + ball.r === canvas.height) changeDirection('rightDown', 'rightUp', 'leftUp');
+            if (ball.y + ball.r === canvas.height) ballDirection('rightDown', 'rightUp', 'leftUp');
             //hitting platform
             if (ball.y + ball.r >= canvas.height - platform.h &&
                 ball.x >= platform.x &&
                 ball.x + ball.r <= platform.x + platform.w) {
-                changeDirection('rightDown', 'rightUp', 'leftUp');
+                ballDirection('rightDown', 'rightUp', 'leftUp');
             }
 
         };
