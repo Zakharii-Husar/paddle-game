@@ -29,8 +29,6 @@ const Canvas = () => {
     else ball.direction = direction3
   };
 
-  const brickArr = [];
-
   class Brick {
     constructor(x, y, w, h) {
       this.x = x;
@@ -80,8 +78,24 @@ const Canvas = () => {
     }
   }
 
-  for (let i = 0; i < 10; i++) {
-    brickArr.push(new Brick((i * 2) * 15, 40, 20, 10))
+  const brickArr = [];
+
+  const brickParameters = {
+    rows: 3,
+    columns: 20,
+    columnGap: 15,
+    rowGap: 30,
+    width: 10,
+    height: 5
+  }
+
+  for (let i = 0; i < brickParameters.rows; i++) {
+    for(let j = 0; j < brickParameters.columns; j++){
+      brickArr.push(new Brick(j * brickParameters.columnGap,
+        i * brickParameters.rowGap,
+        brickParameters.width,
+        brickParameters.height))
+    }
   }
 
 
