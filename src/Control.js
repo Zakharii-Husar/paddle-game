@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 const Control = ({
+  gameState,
   canvasRef,
   platform,}) => {
 
@@ -21,7 +22,7 @@ const Control = ({
       window.removeEventListener('keydown', movePlatform)
     })
 
-  }, [platform]);
+  }, []);
 
 
   return (

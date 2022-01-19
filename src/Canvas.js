@@ -1,20 +1,35 @@
 import './Canvas.css';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Draw from './Draw';
 import Control from './Control';
 import Ball from './Ball';
+import Bricks from './Bricks';
 
 
 const Canvas = () => {
   const canvasRef = useRef(null);
 
-  const brickArr = [];
+  const columns = 16;
+  const [rows, setRows] = useState(10);
+
+  const [gameState, setGameState] = useState(true);
+  const [level, setLevel] = useState(1);
+  const [bricksLeft, setBricksLeft] = useState(rows * columns);
+
+  useEffect(()=>{
+    if(bricksLeft === 159){
+      setGameState(false);
+      setRows(1);
+    }
+  }, [bricksLeft, gameState, rows])
+
 
   const player = {
     lives: 3,
-    level: 1,
-    bricksLeft: 0
-  }
+    bricksLeft: rows * columns
+  };
+
+
 
   const platform = {
     x: 120,
@@ -37,77 +52,8 @@ const Canvas = () => {
     if (ball.direction === direction1) ball.direction = direction2
     else ball.direction = direction3
   };
-  
 
-  class Brick {
-    constructor(x, y, w, h) {
-      this.x = x;
-      this.y = y;
-      this.w = w;
-      this.h = h;
-    }
-
-    draw(ctx) {
-      ctx.fillRect(this.x, this.y, this.w, this.h);
-    }
-
-
-    colision(arr, index) {
-      //hitting left of a brick
-      if (ball.x + ball.r === this.x &&
-        ball.y + ball.r >= this.y &&
-        ball.y <= this.y + this.h) {
-        ballDirection('rightUp', 'leftUp', 'leftDown');
-        delete arr[index];
-      }
-      //hitting right of a brick
-      if (ball.x === this.x + this.w &&
-        ball.y + ball.r >= this.y &&
-        ball.y <= this.y + this.h) {
-        ballDirection('leftUp', 'rightUp', 'rightDown');
-        delete arr[index];
-        
-      }
-      //hitting top of a brick
-      if (ball.y + ball.r === this.y &&
-        ball.x + ball.r >= this.x &&
-        ball.x <= this.x + this.w) {
-        ballDirection('rightDown', 'rightUp', 'leftUp');
-        delete arr[index];
-      }
-      //hitting bottom of a brick
-      if (ball.y === this.y + this.h &&
-        ball.x + ball.r >= this.x &&
-        ball.x <= this.x + this.w) {
-        ballDirection('rightUp', 'rightDown', 'leftDown');
-        delete arr[index];
-      }
-    }
-  }
-
-  const makeNewBricks = () => {
-    let rows = 12;
-    let columns = 16;
-    let width = 15;
-    let height = 5;
-    let columnGap = width + 4;
-    let rowGap = height + 4;
-
-    if(player.level == 2) rows = 8;
-    if(player.level == 3) rows = 10;
-
-    for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < columns; j++) {
-        brickArr.push(new Brick(j * columnGap,
-          i * rowGap,
-          width,
-          height));
-          player.bricksLeft += 1;
-          console.log(player.bricksLeft);
-      }
-    }
-  };
-  makeNewBricks();
+  const brickArr = [];
 
 
   return (
@@ -117,20 +63,34 @@ const Canvas = () => {
         ref={canvasRef} />
 
       <Draw
+        gameState={gameState}
         canvasRef={canvasRef}
         platform={platform}
         ball={ball}
         brickArr={brickArr} />
 
       <Control
+        gameState={gameState}
         canvasRef={canvasRef}
         platform={platform} />
 
       <Ball
+        gameState={gameState}
         canvasRef={canvasRef}
         ball={ball}
         platform={platform}
         ballDirection={ballDirection} />
+
+      <Bricks
+        gameState={gameState}
+        bricksLeft={bricksLeft}
+        setBricksLeft={setBricksLeft}
+        brickArr={brickArr}
+        ball={ball}
+        ballDirection={ballDirection}
+        rows={rows}
+        columns={columns}/>
+        <button onClick={()=>setGameState(true)}></button>
     </>
   );
 };

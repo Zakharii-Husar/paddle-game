@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 const Draw = ({
+  gameState,
   canvasRef,
   platform,
   ball,
@@ -40,13 +41,14 @@ const Draw = ({
 
       requestAnimationFrame(animate);
     };
+    
     animate();
 
     return (() => {
       cancelAnimationFrame(animate);
     })
 
-  }, [platform, ball]);
+  }, [gameState]);
 
 
   return false

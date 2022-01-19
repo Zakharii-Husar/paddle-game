@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 
-function Ball({ canvasRef, ball, platform, ballDirection }) {
+function Ball({
+    gameState,
+    canvasRef,
+    ball,
+    platform,
+    ballDirection }) {
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -47,13 +52,13 @@ function Ball({ canvasRef, ball, platform, ballDirection }) {
             moveBall();
             requestAnimationFrame(animate);
         }
-        animate();
+        if (gameState) animate();
 
         return (() => {
             cancelAnimationFrame(animate);
         })
 
-    }, [])
+    }, [gameState])
 
     return false;
 }
