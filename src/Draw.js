@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const Draw = ({
   gameState,
@@ -6,6 +6,8 @@ const Draw = ({
   platform,
   ball,
   brickArr }) => {
+
+  const requestRef = useRef();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -39,13 +41,13 @@ const Draw = ({
       drawBall();
       drawBricks();
 
-      requestAnimationFrame(animate);
+      requestRef.current = requestAnimationFrame(animate);
     };
-    
-    animate();
+
+    if (gameState) animate();
 
     return (() => {
-      cancelAnimationFrame(animate);
+      cancelAnimationFrame(requestRef.current);
     })
 
   }, [gameState]);

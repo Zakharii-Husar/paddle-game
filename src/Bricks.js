@@ -85,8 +85,8 @@ const Bricks = ({
             makeNewBricks();
         }
 
-         editBricks();
-    }, [bricksLeft, gameState])
+        editBricks();
+    }, [gameState])
 
 
     return false

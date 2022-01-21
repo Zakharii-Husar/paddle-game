@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const Control = ({
   gameState,
   canvasRef,
-  platform,}) => {
+  platform, }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,13 +16,13 @@ const Control = ({
         platform.x -= platform.speed;
     }
 
-    window.addEventListener('keydown', movePlatform);
+    if (gameState) window.addEventListener('keydown', movePlatform);
 
     return (() => {
       window.removeEventListener('keydown', movePlatform)
     })
 
-  }, []);
+  }, [gameState]);
 
 
   return (
