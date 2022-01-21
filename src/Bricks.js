@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 const Bricks = ({
     gameState,
-    bricksLeft,
     setBricksLeft,
     brickArr,
     ball,
@@ -70,8 +69,6 @@ const Bricks = ({
                 let height = 5;
                 let columnGap = width + 4;
                 let rowGap = height + 4;
-                // if (player.level == 2) rows = 8;
-                // if (player.level == 3) rows = 10;
 
                 for (let i = 0; i < rows; i++) {
                     for (let j = 0; j < columns; j++) {

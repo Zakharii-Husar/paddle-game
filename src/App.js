@@ -4,6 +4,7 @@ import Draw from './Draw';
 import Control from './Control';
 import Ball from './Ball';
 import Bricks from './Bricks';
+import heart from './heart.png'
 
 
 const App = () => {
@@ -14,37 +15,50 @@ const App = () => {
     const [rows, setRows] = useState(4);
 
     const [gameState, setGameState] = useState(false);
+    const [won, setWon] = useState(false);
+    const [lives, setLives] = useState(3);
     const [level, setLevel] = useState(1);
     const [bricksLeft, setBricksLeft] = useState(rows * columns);
+
+    const startGame = () => {
+        setLives(3);
+        setGameState(true);
+        setWon(false);
+    };
 
     const nextLevel = () => {
         setGameState(() => false);
         setRows(() => (level + 1) * 4);
         setLevel(prevLevel => prevLevel + 1)
-    }
+    };
 
+    const gameOver = () => {
+        setGameState(() => false);
+        setLevel(1);
+        setRows(4);
+        setBricksLeft(rows * columns)
+    };
 
     useEffect(() => {
-        if (bricksLeft === 63 || bricksLeft === 127 || bricksLeft === 191) {
-            if (gameState) nextLevel();
+        if (level === 5) {
+            gameOver();
+            setWon(true);
+        }
+    }, [level])
+
+    useEffect(() => {
+        if (!bricksLeft && !won) {
+            nextLevel();
         }
     }, [bricksLeft]);
-
-    useEffect(() => {
-        //if(level === 4) setLevel(3);
-    }, [level])
 
     useEffect(() => {
         setBricksLeft(() => rows * columns)
     }, [rows])
 
-    // if (player.level == 2) rows = 8;
-    // if (player.level == 3) rows = 10;
-
-    const player = {
-        lives: 3,
-        bricksLeft: rows * columns
-    };
+    useEffect(() => {
+        if (!lives) gameOver();
+    }, [lives])
 
 
 
@@ -72,20 +86,40 @@ const App = () => {
 
     const brickArr = [];
 
-    const panelStyle = level < 4 ? { display: "flex" } : { display: "none" };
     const menuStyle = gameState === false ? { display: "flex" } : { display: "none" };
+    let notification = 'LEVEL ' + level;
+    let startBtnText = 'START ';
+
+    if (!lives) {
+        notification = 'GAME OVER';
+        startBtnText = 'TRY AGAIN';
+    }
+    if (won) {
+        notification = 'YOU HAVE WON!';
+        startBtnText = 'PLAY AGAIN';
+
+    }
 
     return (<div className='App'>
 
         <div
             className='menu'
             style={menuStyle} >
-            <div className='level'> LEVEL {level} </div>
-            <button className='start' onClick={() => setGameState(true)}> START </button>
+            <div className='level'>{notification}</div>
+            <button className='start' onClick={startGame}> {startBtnText} </button>
         </div >
 
         <div className='panel' >
-            <div > Lives </div> <div > Level: {level}/3</div >
+            <div>
+                <img
+                style={lives > 0 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
+                <img
+                style={lives > 1 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
+                <img
+                style={lives > 2 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
+            </div>
+            
+            <div > Level: {level}/4</div >
             <div > Left: {bricksLeft}/{rows * columns}</div >
         </div>
 
@@ -113,6 +147,7 @@ const App = () => {
             ball={ball}
             platform={platform}
             ballDirection={ballDirection}
+            setLives={setLives}
         />
 
         <Bricks requestRef={requestRef}
@@ -124,7 +159,8 @@ const App = () => {
             ballDirection={ballDirection}
             rows={rows}
             columns={columns}
-        /> </div >)
+        /> 
+        </div >)
 };
 
 export default App;

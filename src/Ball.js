@@ -5,7 +5,8 @@ function Ball({
     canvasRef,
     ball,
     platform,
-    ballDirection }) {
+    ballDirection,
+    setLives }) {
 
     const requestRef = useRef();
 
@@ -19,7 +20,10 @@ function Ball({
         //hitting top
         else if (ball.y <= ball.r) ballDirection('rightUp', 'rightDown', 'leftDown');
         //hitting bottom
-        else if (ball.y + ball.r >= canvas.height) ballDirection('rightDown', 'rightUp', 'leftUp');
+        else if (ball.y + ball.r >= canvas.height) {
+            ballDirection('rightDown', 'rightUp', 'leftUp');
+            setLives(lives => lives - 1);
+        }
         //hitting platform
         if (ball.y + ball.r >= canvas.height - platform.h &&
             ball.x >= platform.x &&
@@ -54,7 +58,7 @@ function Ball({
         moveBall();
         requestRef.current = requestAnimationFrame(animate);
     }
-    
+
 
     useEffect(() => {
         if (gameState) animate();
