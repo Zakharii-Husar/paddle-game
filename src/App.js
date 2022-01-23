@@ -111,29 +111,29 @@ const App = () => {
         ref={containerRef}
         className='App'>
 
+        <div className='panel' >
+            <div className='hearts'>
+                <img
+                    alt='I'
+                    style={lives > 0 ? { display: 'inline' } : { display: 'none' }} src={heart} />
+                <img
+                    alt='I'
+                    style={lives > 1 ? { display: 'inline' } : { display: 'none' }} src={heart} />
+                <img
+                    alt='I'
+                    style={lives > 2 ? { display: 'inline' } : { display: 'none' }}  src={heart} />
+            </div>
+
+            <div>Level {level}/4</div>
+            <div>Left {bricksLeft}/{rows * columns}</div>
+        </div>
+
         <div
             className='menu'
             style={menuStyle} >
             <div className='level'>{notification}</div>
             <button className='start' onClick={startGame}> {startBtnText} </button>
         </div >
-
-        <div className='panel' >
-            <div>
-                <img
-                    alt='I'
-                    style={lives > 0 ? { display: 'inline' } : { display: 'none' }} className='heart' src={heart} />
-                <img
-                    alt='I'
-                    style={lives > 1 ? { display: 'inline' } : { display: 'none' }} className='heart' src={heart} />
-                <img
-                    alt='I'
-                    style={lives > 2 ? { display: 'inline' } : { display: 'none' }} className='heart' src={heart} />
-            </div>
-
-            <div > Level: {level}/4</div >
-            <div > Left: {bricksLeft}/{rows * columns}</div >
-        </div>
 
         <canvas className='canvas'
             ref={canvasRef}

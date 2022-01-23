@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './Control.css';
 import right from './right.png'
 import left from './left.png'
 
