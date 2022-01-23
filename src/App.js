@@ -8,6 +8,7 @@ import heart from './heart.png'
 
 
 const App = () => {
+    const containerRef = useRef();
     const canvasRef = useRef(null);
     const requestRef = useRef();
 
@@ -20,7 +21,13 @@ const App = () => {
     const [level, setLevel] = useState(1);
     const [bricksLeft, setBricksLeft] = useState(rows * columns);
 
+    const fullScreen = () => {
+        containerRef.current.requestFullscreen();
+        window.screen.orientation.lock('landscape');
+    }
+
     const startGame = () => {
+        fullScreen();
         setLives(3);
         setGameState(true);
         setWon(false);
@@ -44,13 +51,13 @@ const App = () => {
             gameOver();
             setWon(true);
         }
-    }, [level, gameOver])
+    }, [level])
 
     useEffect(() => {
         if (!bricksLeft && !won) {
             nextLevel();
         }
-    }, [bricksLeft, nextLevel]);
+    }, [bricksLeft]);
 
     useEffect(() => {
         setBricksLeft(() => rows * columns)
@@ -58,7 +65,7 @@ const App = () => {
 
     useEffect(() => {
         if (!lives) gameOver();
-    }, [lives, gameOver])
+    }, [lives])
 
 
 
@@ -100,7 +107,9 @@ const App = () => {
 
     }
 
-    return (<div className='App'>
+    return (<div
+        ref={containerRef}
+        className='App'>
 
         <div
             className='menu'
@@ -112,16 +121,16 @@ const App = () => {
         <div className='panel' >
             <div>
                 <img
-                alt='I'
-                style={lives > 0 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
+                    alt='I'
+                    style={lives > 0 ? { display: 'inline' } : { display: 'none' }} className='heart' src={heart} />
                 <img
-                alt='I'
-                style={lives > 1 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
+                    alt='I'
+                    style={lives > 1 ? { display: 'inline' } : { display: 'none' }} className='heart' src={heart} />
                 <img
-                alt='I'
-                style={lives > 2 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
+                    alt='I'
+                    style={lives > 2 ? { display: 'inline' } : { display: 'none' }} className='heart' src={heart} />
             </div>
-            
+
             <div > Level: {level}/4</div >
             <div > Left: {bricksLeft}/{rows * columns}</div >
         </div>
@@ -162,8 +171,8 @@ const App = () => {
             ballDirection={ballDirection}
             rows={rows}
             columns={columns}
-        /> 
-        </div >)
+        />
+    </div >)
 };
 
 export default App;
