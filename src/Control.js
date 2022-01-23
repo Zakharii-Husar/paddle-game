@@ -42,10 +42,14 @@ const Control = ({
 
   return (
     <div className='buttons'>
-      <img src={left}
+      <img
+        alt='<<<'
+        src={left}
         onTouchStart={() => setMove('left')}
         onTouchEnd={() => setMove(null)} />
-      <img src={right}
+      <img
+        alt='>>>'
+        src={right}
         onTouchStart={() => setMove('right')} />
     </div>
   );

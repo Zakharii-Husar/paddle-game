@@ -44,13 +44,13 @@ const App = () => {
             gameOver();
             setWon(true);
         }
-    }, [level])
+    }, [level, gameOver])
 
     useEffect(() => {
         if (!bricksLeft && !won) {
             nextLevel();
         }
-    }, [bricksLeft]);
+    }, [bricksLeft, nextLevel]);
 
     useEffect(() => {
         setBricksLeft(() => rows * columns)
@@ -58,7 +58,7 @@ const App = () => {
 
     useEffect(() => {
         if (!lives) gameOver();
-    }, [lives])
+    }, [lives, gameOver])
 
 
 
@@ -112,10 +112,13 @@ const App = () => {
         <div className='panel' >
             <div>
                 <img
+                alt='I'
                 style={lives > 0 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
                 <img
+                alt='I'
                 style={lives > 1 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
                 <img
+                alt='I'
                 style={lives > 2 ? {display: 'inline'} : {display: 'none'}} className='heart' src={heart}/>
             </div>
             
