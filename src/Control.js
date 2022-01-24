@@ -5,24 +5,25 @@ import left from './left.png'
 const Control = ({
   gameState,
   canvasRef,
-  requestRef,
   platform, }) => {
 
   const [move, setMove] = useState();
+  const requestRef = useRef();
 
   useEffect(() => {
     const canvas = canvasRef.current;
 
     const sensorControl = () => {
       if (move === 'right' && platform.x + platform.w < canvas.width) platform.x += 1;
-      if (move === 'left' && platform.x >  0) platform.x -= 1;
+      if (move === 'left' && platform.x > 0) platform.x -= 1;
       requestRef.current = requestAnimationFrame(sensorControl);
     }
     sensorControl();
+    console.log(move, platform.x);
 
     return (() => {
       cancelAnimationFrame(requestRef.current);
-  })
+    })
 
   }, [move, gameState]);
 
@@ -53,13 +54,13 @@ const Control = ({
       <img
         alt='<<<'
         src={left}
-        onTouchStart={() => setMove('left')}
-        onTouchEnd={() => setMove(null)} />
+        onTouchStartCapture={() => setMove('left')}
+        onTouchEndCapture={() => setMove(null)} />
       <img
         alt='>>>'
         src={right}
-        onTouchStart={() => setMove('right')}
-        onTouchEnd={() => setMove(null)} />
+        onTouchStartCapture={() => setMove('right')}
+        onTouchEndCapture={() => setMove(null)} />
     </div>
   );
 };
