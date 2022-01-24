@@ -26,8 +26,8 @@ function Ball({
         }
         //hitting platform
         if (ball.y + ball.r >= canvas.height - platform.h &&
-            ball.x >= platform.x &&
-            ball.x + ball.r <= platform.x + platform.w) {
+            ball.x + ball.r  >= platform.x &&
+            ball.x <= platform.x + platform.w) {
             ballDirection('rightDown', 'rightUp', 'leftUp');
         }
 

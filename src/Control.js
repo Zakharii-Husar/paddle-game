@@ -9,15 +9,17 @@ const Control = ({
 
   const [move, setMove] = useState(null);
 
+  const sensorControl = () => {
+    if (move === 'right') platform.x += platform.speed
+    else if (move === 'left') platform.x -= platform.speed
+    else return;
+  }
+
   useEffect(() => {
-    const sensorControl = () => {
-      if (move === 'right') platform.x += platform.speed;
-      if (move === 'left') platform.x -= platform.speed;
-    }
 
     sensorControl();
 
-  }, [move])
+  }, [move, sensorControl])
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -44,8 +46,7 @@ const Control = ({
       <img
         alt='<<<'
         src={left}
-        onTouchStart={() => setMove('left')}
-        onTouchEnd={() => setMove(null)} />
+        onTouchStart={() => setMove('left')} />
       <img
         alt='>>>'
         src={right}
