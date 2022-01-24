@@ -8,6 +8,25 @@ import heart from './heart.png'
 
 
 const App = () => {
+
+    const platform = {
+        x: 120,
+        y: 0,
+        w: 60,
+        h: 5,
+        speed: 8,
+        direction: null
+    };
+
+
+    const ball = {
+        x: 150,
+        y: 150 - platform.h - 3,
+        r: 3,
+        speed: 1,
+        direction: 'rightUp'
+    };
+    
     const containerRef = useRef();
     const canvasRef = useRef(null);
     const requestRef = useRef();
@@ -67,24 +86,6 @@ const App = () => {
         if (!lives) gameOver();
     }, [lives])
 
-
-
-    const platform = {
-        x: 120,
-        y: 0,
-        w: 60,
-        h: 5,
-        speed: 8
-    };
-
-
-    const ball = {
-        x: 150,
-        y: 150 - platform.h - 3,
-        r: 3,
-        speed: 1,
-        direction: 'rightUp'
-    };
 
     const ballDirection = (direction1, direction2, direction3) => {
         if (ball.direction === direction1) ball.direction = direction2
