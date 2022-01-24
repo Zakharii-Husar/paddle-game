@@ -1,25 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import right from './right.png'
 import left from './left.png'
 
 const Control = ({
   gameState,
   canvasRef,
+  requestRef,
   platform, }) => {
 
-  const [move, setMove] = useState(null);
+  const [move, setMove] = useState();
 
   useEffect(() => {
+    const canvas = canvasRef.current;
 
     const sensorControl = () => {
-      if (move === 'right') platform.x += platform.speed
-      else if (move === 'left') platform.x -= platform.speed
-      else return;
+      if (move === 'right' && platform.x + platform.w < canvas.width) platform.x += 1;
+      if (move === 'left' && platform.x >  0) platform.x -= 1;
+      requestRef.current = requestAnimationFrame(sensorControl);
     }
-
     sensorControl();
 
-  }, [platform])
+    return (() => {
+      cancelAnimationFrame(requestRef.current);
+  })
+
+  }, [move, gameState]);
+
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -46,12 +53,13 @@ const Control = ({
       <img
         alt='<<<'
         src={left}
-        onTouchStart={() => setMove('left')} />
+        onTouchStart={() => setMove('left')}
+        onTouchEnd={() => setMove(null)} />
       <img
         alt='>>>'
         src={right}
-        onClick={() => platform.x += platform.speed}
-        onTouchStart={() => platform.x += platform.speed} />
+        onTouchStart={() => setMove('right')}
+        onTouchEnd={() => setMove(null)} />
     </div>
   );
 };

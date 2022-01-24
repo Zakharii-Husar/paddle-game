@@ -121,7 +121,7 @@ const App = () => {
                     style={lives > 1 ? { display: 'inline' } : { display: 'none' }} src={heart} />
                 <img
                     alt='I'
-                    style={lives > 2 ? { display: 'inline' } : { display: 'none' }}  src={heart} />
+                    style={lives > 2 ? { display: 'inline' } : { display: 'none' }} src={heart} />
             </div>
 
             <div>Level {level}/4</div>
@@ -147,7 +147,8 @@ const App = () => {
             brickArr={brickArr}
         />
 
-        <Control requestRef={requestRef}
+        <Control
+            requestRef={requestRef}
             gameState={gameState}
             canvasRef={canvasRef}
             platform={platform}
