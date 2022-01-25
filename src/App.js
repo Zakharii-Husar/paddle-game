@@ -5,6 +5,7 @@ import Control from './Control';
 import Ball from './Ball';
 import Bricks from './Bricks';
 import heart from './heart.png'
+import background from './background.jpg'
 
 
 const App = () => {
@@ -26,7 +27,7 @@ const App = () => {
         speed: 1,
         direction: 'rightUp'
     };
-    
+
     const containerRef = useRef();
     const canvasRef = useRef(null);
     const requestRef = useRef();
@@ -112,6 +113,17 @@ const App = () => {
         ref={containerRef}
         className='App'>
 
+        <img src={background}
+            style={ gameState? {display: 'none'} : {display: 'flex'} }
+            className='background' />
+
+        <div
+            className='menu'
+            style={menuStyle} >
+            <div className='level'>{notification}</div>
+            <button className='start' onClick={startGame} onTouchEnd={startGame}> {startBtnText} </button>
+        </div >
+
         <div className='panel' >
             <div className='hearts'>
                 <img
@@ -128,13 +140,6 @@ const App = () => {
             <div>Level {level}/4</div>
             <div>Left {bricksLeft}/{rows * columns}</div>
         </div>
-
-        <div
-            className='menu'
-            style={menuStyle} >
-            <div className='level'>{notification}</div>
-            <button className='start' onClick={startGame} onTouchEnd={startGame}> {startBtnText} </button>
-        </div >
 
         <canvas className='canvas'
             ref={canvasRef}
