@@ -21,7 +21,7 @@ const Control = ({
 
   const movePlatform = () => {
     if (move.current === 'right') moveRight();
-    if (move.current === 'left' ) moveLeft();
+    if (move.current === 'left') moveLeft();
     requestRef.current = requestAnimationFrame(movePlatform);
   };
 
@@ -30,7 +30,7 @@ const Control = ({
     if (key === 'ArrowLeft') move.current = 'left';
   }
 
-  const keyUp = () =>{
+  const keyUp = () => {
     move.current = null;
   };
 
@@ -52,16 +52,12 @@ const Control = ({
 
   return (
     <div className='buttons'>
-      <img
-        alt='<<<'
-        src={left}
-        onTouchStart={(e)=>{e.preventDefault(); move.current = 'left'}}
-        onTouchEnd={(e)=>{e.preventDefault(); move.current = null}} />
-      <img
-        alt='>>>'
-        src={right}
-        onTouchStart={(e)=>{e.preventDefault(); move.current = 'right'}}
-        onTouchEnd={(e)=>{e.preventDefault(); move.current = null}}  />
+      <button
+        onTouchStart={(e) => { move.current = 'left' }}
+        onTouchEnd={() => { move.current = null }}>Left</button>
+      <button
+        onTouchStart={() => { move.current = 'right' }}
+        onTouchEnd={() => { move.current = null }}>Right</button>
     </div>
   );
 };
