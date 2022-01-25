@@ -40,6 +40,7 @@ const Control = ({
 
     window.addEventListener('keydown', keyDown);
     window.addEventListener('keyup', keyUp);
+    window.addEventListener('touchstart', function(e){e.preventDefault()}, {passive: false});
 
     return (() => {
       window.removeEventListener('keydown', keyDown);
@@ -55,12 +56,12 @@ const Control = ({
       <img
         alt='<<<'
         src={left}
-        onTouchStartCapture={(e) => { e.preventDefault(); }}
+        onTouchStart={() => { move.current = 'left'; }}
         onTouchEnd={() => { move.current = null }} />
       <img
         alt='>>>'
         src={right}
-        onTouchStart={(e) => { e.preventDefault(); move.current = 'right' }}
+        onTouchStart={() => { move.current = 'right' }}
         onTouchEnd={() => { move.current = null }} />
     </div>
   );
