@@ -66,11 +66,6 @@ const App = () => {
         setBricksLeft(rows * columns)
     };
 
-    if (gameState){
-       if (window.screen.orientation.type === 'album-primary' ||
-       window.screen.orientation.type === 'album') setGameState(false);
-    }
-
     useEffect(() => {
         if (level === 5) {
             gameOver();
@@ -81,7 +76,7 @@ const App = () => {
     useEffect(() => {
         if (!bricksLeft && !won) {
             nextLevel();
-        }
+        };
     }, [bricksLeft]);
 
     useEffect(() => {
