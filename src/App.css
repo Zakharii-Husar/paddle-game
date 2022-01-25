@@ -80,3 +80,13 @@ body, html, *{
 .buttons * :hover{
   background-color: red;
 }
+
+@media (hover: hover) and (pointer: fine){
+  .buttons{
+    display: none;
+  }
+
+  .canvas{
+    height: 90%;
+  }
+}
