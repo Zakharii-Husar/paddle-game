@@ -133,7 +133,7 @@ const App = () => {
             className='menu'
             style={menuStyle} >
             <div className='level'>{notification}</div>
-            <button className='start' onClick={startGame} onTouchStart={startGame}> {startBtnText} </button>
+            <button className='start' onClick={startGame} onTouchEnd={startGame}> {startBtnText} </button>
         </div >
 
         <canvas className='canvas'
