@@ -3,61 +3,48 @@ import right from './right.png'
 import left from './left.png'
 
 const Control = ({
+  requestRef,
   gameState,
   canvasRef,
   platform }) => {
 
-  const requestRef = useRef();
-  const [move, setMove] = useState(null);
   const canvas = canvasRef.current;
-  const leftRef = useRef();
-  const rightRef = useRef();
+  const move = useRef(null);
 
-  // useEffect(() => {
-  //   const sensorControl = () => {
-  //     if (move === 'right' && platform.x + platform.w < canvas.width) platform.x += 1;
-  //     if (move === 'left' && platform.x > 0) platform.x -= 1;
-  //     requestRef.current = requestAnimationFrame(sensorControl);
+  const moveRight = () => {
+    if (platform.x < canvas.width - platform.w) platform.x += platform.speed;
+  };
 
-  //   }
-  //   sensorControl();
-  //   console.log(move, platform.x);
+  const moveLeft = () => {
+    if (platform.x > 0) platform.x -= platform.speed;
+  };
 
-  //   return (() => {
-  //     cancelAnimationFrame(requestRef.current);
-  //   })
+  const movePlatform = () => {
+    if (move.current === 'right') moveRight();
+    if (move.current === 'left' ) moveLeft();
+    requestRef.current = requestAnimationFrame(movePlatform);
+  };
 
-  // }, [gameState, move, platform]);
+  const keyDown = ({ key }) => {
+    if (key === 'ArrowRight') move.current = 'right';
+    if (key === 'ArrowLeft') move.current = 'left';
+  }
 
-
+  const keyUp = () =>{
+    move.current = null;
+  };
 
   useEffect(() => {
 
-    const moveRight = () =>{
-      if (platform.x < canvas.width - platform.w) platform.x += platform.speed;
-    };
+    movePlatform();
 
-    const moveLeft = () =>{
-      if (platform.x > 0) platform.x -= platform.speed;
-    }
-
-    const keyControl = ({ key }) => {
-      if (key === 'ArrowRight') moveRight();
-      if (key === 'ArrowLeft') moveLeft();
-    }
-
-    if (gameState) {
-      window.addEventListener('keydown', keyControl);
-
-      leftRef.current.addEventListener('touchstart', (e)=>{e.preventDefault(); moveLeft()})
-
-      rightRef.current.addEventListener('touchstart', (e)=>{e.preventDefault(); moveLeft()})
-    }
+    window.addEventListener('keydown', keyDown);
+    window.addEventListener('keyup', keyUp);
 
     return (() => {
-      window.removeEventListener('keydown', keyControl);
-      leftRef.current.removeEventListener('touchstart', moveLeft);
-      rightRef.current.removeEventListener('touchstart', moveRight);
+      window.removeEventListener('keydown', keyDown);
+      window.removeEventListener('keyup', keyUp);
+      cancelAnimationFrame(requestRef.current);
     })
 
   }, [gameState]);
@@ -66,17 +53,15 @@ const Control = ({
   return (
     <div className='buttons'>
       <img
-        ref={leftRef}
         alt='<<<'
         src={left}
-        onTouchStart={() => setMove(() => 'left')}
-        onTouchEnd={() => setMove(() => 'stop')} />
+        onTouchStart={(e)=>{e.preventDefault(); move.current = 'left'}}
+        onTouchEnd={(e)=>{e.preventDefault(); move.current = null}} />
       <img
-        ref={rightRef}
         alt='>>>'
         src={right}
-        onTouchStart={() => setMove(() => 'right')}
-        onTouchEnd={() => setMove(() => 'stop')} />
+        onTouchStart={(e)=>{e.preventDefault(); move.current = 'right'}}
+        onTouchEnd={(e)=>{e.preventDefault(); move.current = null}}  />
     </div>
   );
 };

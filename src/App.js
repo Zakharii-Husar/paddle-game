@@ -14,7 +14,7 @@ const App = () => {
         y: 0,
         w: 60,
         h: 5,
-        speed: 8,
+        speed: 4,
         direction: null
     };
 
