@@ -66,6 +66,11 @@ const App = () => {
         setBricksLeft(rows * columns)
     };
 
+    console.log();
+    window.onhashchange = () =>{
+        setGameState(false);
+    }
+
     useEffect(() => {
         if (level === 5) {
             gameOver();
@@ -114,7 +119,7 @@ const App = () => {
         className='App'>
 
         <img src={background}
-            style={ gameState? {display: 'none'} : {display: 'flex'} }
+            style={ gameState ? {display: 'none'} : {display: 'flex'} }
             className='background' />
 
         <div
