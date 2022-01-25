@@ -52,12 +52,16 @@ const Control = ({
 
   return (
     <div className='buttons'>
-      <button
-        onTouchStart={(e) => { move.current = 'left' }}
-        onTouchEnd={() => { move.current = null }}>Left</button>
-      <button
-        onTouchStart={() => { move.current = 'right' }}
-        onTouchEnd={() => { move.current = null }}>Right</button>
+      <img
+        alt='<<<'
+        src={left}
+        onTouchStartCapture={(e) => { e.preventDefault(); }}
+        onTouchEnd={() => { move.current = null }} />
+      <img
+        alt='>>>'
+        src={right}
+        onTouchStart={(e) => { e.preventDefault(); move.current = 'right' }}
+        onTouchEnd={() => { move.current = null }} />
     </div>
   );
 };
