@@ -66,9 +66,9 @@ const App = () => {
         setBricksLeft(rows * columns)
     };
 
-    console.log();
+    
     window.onhashchange = () =>{
-        setGameState(false);
+        if (gameState) setGameState(false);
     }
 
     useEffect(() => {
