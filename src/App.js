@@ -66,9 +66,9 @@ const App = () => {
         setBricksLeft(rows * columns)
     };
 
-    
-    window.onhashchange = () =>{
-        if (gameState) setGameState(false);
+    if (gameState){
+       if (window.screen.orientation.type === 'album-primary' ||
+       window.screen.orientation.type === 'album') setGameState(false);
     }
 
     useEffect(() => {
@@ -119,7 +119,7 @@ const App = () => {
         className='App'>
 
         <img src={background}
-            style={ gameState ? {display: 'none'} : {display: 'flex'} }
+            style={gameState ? { display: 'none' } : { display: 'flex' }}
             className='background' />
 
         <div
