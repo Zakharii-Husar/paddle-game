@@ -57,8 +57,15 @@ body, html, *{
 .buttons {
   display: flex;
   justify-content: space-between;
+  margin: auto 0;
 }
 
 .buttons *{
-  width: 3rem;
+  width: 2rem;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.buttons * :hover{
+  background-color: red;
 }

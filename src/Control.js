@@ -10,6 +10,7 @@ const Control = ({
 
   const canvas = canvasRef.current;
   const move = useRef(null);
+  const [buttonHighLight, setButtonHighLight] =useState(null);
 
   const moveRight = () => {
     if (platform.x < canvas.width - platform.w) platform.x += platform.speed;
@@ -40,7 +41,7 @@ const Control = ({
 
     window.addEventListener('keydown', keyDown);
     window.addEventListener('keyup', keyUp);
-    window.addEventListener('touchstart', function(e){e.preventDefault()}, {passive: false});
+    window.addEventListener('touchstart', function (e) { e.preventDefault() }, { passive: false });
 
     return (() => {
       window.removeEventListener('keydown', keyDown);
@@ -54,15 +55,17 @@ const Control = ({
   return (
     <div className='buttons'>
       <img
+        style={buttonHighLight === 'left' ? { backgroundColor: 'red' } : { backgroundColor: 'black' }}
         alt='<<<'
         src={left}
-        onTouchStart={() => { move.current = 'left'; }}
-        onTouchEnd={() => { move.current = null }} />
+        onTouchStart={() => { move.current = 'left'; setButtonHighLight('left') }}
+        onTouchEnd={() => { move.current = null; setButtonHighLight(null) }} />
       <img
+        style={buttonHighLight === 'right' ? { backgroundColor: 'red' } : { backgroundColor: 'black' }}
         alt='>>>'
         src={right}
-        onTouchStart={() => { move.current = 'right' }}
-        onTouchEnd={() => { move.current = null }} />
+        onTouchStart={() => { move.current = 'right'; setButtonHighLight('right') }}
+        onTouchEnd={() => { move.current = null; setButtonHighLight(null) }} />
     </div>
   );
 };
