@@ -13,9 +13,9 @@ const App = () => {
     const platform = {
         x: 120,
         y: 0,
-        w: 60,
+        w: 40,
         h: 5,
-        speed: 4,
+        speed: 2,
         direction: null
     };
 
@@ -56,7 +56,8 @@ const App = () => {
     const nextLevel = () => {
         setGameState(() => false);
         setRows(() => (level + 1) * 4);
-        setLevel(prevLevel => prevLevel + 1)
+        setLevel(prevLevel => prevLevel + 1);
+        platform.speed += 1;
     };
 
     const gameOver = () => {
