@@ -8,6 +8,7 @@ import heart from './heart.png'
 import background from './background.jpg'
 
 
+
 const App = () => {
 
     const platform = {
@@ -159,6 +160,7 @@ const App = () => {
             gameState={gameState}
             canvasRef={canvasRef}
             platform={platform}
+            fullScreen={fullScreen}
         />
 
         <Ball requestRef={requestRef}

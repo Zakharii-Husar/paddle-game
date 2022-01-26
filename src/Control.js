@@ -1,16 +1,22 @@
 import { useEffect, useState, useRef } from 'react';
 import right from './right.png'
 import left from './left.png'
+import fullscreenPic from './fullscreen.png'
 
 const Control = ({
   requestRef,
   gameState,
   canvasRef,
-  platform }) => {
+  platform,
+  fullScreen }) => {
 
   const canvas = canvasRef.current;
   const move = useRef(null);
-  const [buttonHighLight, setButtonHighLight] =useState(null);
+  const [buttonHighLight, setButtonHighLight] = useState(null);
+
+  const exitFullscreen = () => {
+
+  }
 
   const moveRight = () => {
     if (platform.x < canvas.width - platform.w) platform.x += platform.speed;
@@ -60,6 +66,10 @@ const Control = ({
         src={left}
         onTouchStart={() => { move.current = 'left'; setButtonHighLight('left') }}
         onTouchEnd={() => { move.current = null; setButtonHighLight(null) }} />
+
+      <img
+        src={fullscreenPic}
+        onClick={fullScreen} />
       <img
         style={buttonHighLight === 'right' ? { backgroundColor: 'red' } : { backgroundColor: 'black' }}
         alt='>>>'
