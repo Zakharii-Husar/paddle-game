@@ -78,11 +78,6 @@ body, html, *{
   border-radius: 20px;
 }
 
-@media screen and (orieantation: portrait){
-  .canvas{
-    height: 30%;
-  }
-}
 
 @media (hover: hover) and (pointer: fine){
   .buttons{

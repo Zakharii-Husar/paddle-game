@@ -44,8 +44,6 @@ const App = () => {
 
     const fullScreen = () => {
         containerRef.current.requestFullscreen();
-        let locOrientation = window.screen.lockOrientation || window.screen.mozLockOrientation || window.screen.msLockOrientation || window.screen.orientation.lock;
-locOrientation('landscape');
         window.screen.orientation.lock('landscape-primary');
     }
 
