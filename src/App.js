@@ -43,11 +43,7 @@ const App = () => {
     const [bricksLeft, setBricksLeft] = useState(rows * columns);
 
     const fullScreen = () => {
-        const element = containerRef.current;
-        if(element) element.requestFullscreen()
-        else if (element.mozRequestFullscreen) element.mozRequestFullscreen()
-        else if(element.webkitRequestFullscreen)element.webkitRequestFullscreen()
-        else if(element.msRequestFullscreen) element.msRequestFullscreen()
+        containerRef.current.requestFullscreen()
         window.screen.orientation.lock('landscape-primary');
     }
 
