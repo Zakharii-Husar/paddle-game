@@ -49,7 +49,7 @@ body, html, *{
 .rotate{
   z-index: 1;
   width: 40%;
-  margin: auto;
+  margin: 100% auto 0 auto;
 }
 
 .canvas {
