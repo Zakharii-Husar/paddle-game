@@ -1,13 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 const Draw = ({
   gameState,
+  requestRef,
   canvasRef,
   platform,
   ball,
   brickArr }) => {
-
-  const requestRef = useRef();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -15,8 +14,6 @@ const Draw = ({
 
     const drawPlatform = () => {
       ctx.fillStyle = 'blue';
-      ctx.strokeStyle = 'grey';
-      ctx.strokeWidth = 5;
       ctx.fillRect(platform.x, canvas.height - platform.h, platform.w, platform.h);
     };
 
@@ -31,7 +28,6 @@ const Draw = ({
 
     const drawBricks = () => {
       ctx.fillStyle = 'green';
-      ctx.strokeStyle = 'white';
       for (let i = 0; i < brickArr.length; i++) {
         brickArr[i]?.draw(ctx);
         brickArr[i]?.colision(brickArr, i);

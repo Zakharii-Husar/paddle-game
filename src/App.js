@@ -16,7 +16,7 @@ const App = () => {
         y: 0,
         w: 40,
         h: 5,
-        speed: 6,
+        speed: 4,
         direction: null
     };
 
@@ -29,18 +29,19 @@ const App = () => {
         direction: 'rightUp'
     };
 
-    const containerRef = useRef();
-    const canvasRef = useRef(null);
-    const requestRef = useRef();
-
+    const brickArr = [];
     const columns = 16;
-    const [rows, setRows] = useState(4);
 
     const [gameState, setGameState] = useState(false);
     const [won, setWon] = useState(false);
+    const [rows, setRows] = useState(4);
     const [lives, setLives] = useState(3);
     const [level, setLevel] = useState(1);
     const [bricksLeft, setBricksLeft] = useState(rows * columns);
+
+    const containerRef = useRef();
+    const canvasRef = useRef(null);
+    const requestRef = useRef();
 
     const fullScreen = () => {
         containerRef.current.requestFullscreen()
@@ -90,14 +91,11 @@ const App = () => {
     }, [lives])
 
 
-    const ballDirection = (direction1, direction2, direction3) => {
+    const changeBallDirection = (direction1, direction2, direction3) => {
         if (ball.direction === direction1) ball.direction = direction2
         else ball.direction = direction3
     };
 
-    const brickArr = [];
-
-    const menuStyle = gameState === false ? { display: "flex" } : { display: "none" };
     let notification = 'LEVEL ' + level;
     let startBtnText = 'START ';
 
@@ -121,7 +119,7 @@ const App = () => {
 
         <div
             className='menu'
-            style={menuStyle} >
+            style={!gameState ? { display: "flex" } : { display: "none" }} >
             <div className='level'>{notification}</div>
             <button className='start' onClick={startGame} onTouchStart={startGame} onTouchEnd={startGame}> {startBtnText} </button>
         </div >
@@ -147,8 +145,9 @@ const App = () => {
             ref={canvasRef}
         />
 
-        <Draw requestRef={requestRef}
+        <Draw
             gameState={gameState}
+            requestRef={requestRef}
             canvasRef={canvasRef}
             platform={platform}
             ball={ball}
@@ -156,29 +155,29 @@ const App = () => {
         />
 
         <Control
-            requestRef={requestRef}
             gameState={gameState}
+            requestRef={requestRef}
             canvasRef={canvasRef}
             platform={platform}
             fullScreen={fullScreen}
         />
 
-        <Ball requestRef={requestRef}
+        <Ball
             gameState={gameState}
+            requestRef={requestRef}
             canvasRef={canvasRef}
-            ball={ball}
             platform={platform}
-            ballDirection={ballDirection}
+            ball={ball}
+            changeBallDirection={changeBallDirection}
             setLives={setLives}
         />
 
-        <Bricks requestRef={requestRef}
+        <Bricks
             gameState={gameState}
-            bricksLeft={bricksLeft}
             setBricksLeft={setBricksLeft}
             brickArr={brickArr}
             ball={ball}
-            ballDirection={ballDirection}
+            changeBallDirection={changeBallDirection}
             rows={rows}
             columns={columns}
         />

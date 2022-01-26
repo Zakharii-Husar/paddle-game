@@ -11,12 +11,10 @@ const Control = ({
   fullScreen }) => {
 
   const canvas = canvasRef.current;
+  
   const move = useRef(null);
+
   const [buttonHighLight, setButtonHighLight] = useState(null);
-
-  const exitFullscreen = () => {
-
-  }
 
   const moveRight = () => {
     if (platform.x < canvas.width - platform.w) platform.x += platform.speed;

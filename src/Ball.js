@@ -1,34 +1,33 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 function Ball({
     gameState,
+    requestRef,
     canvasRef,
     ball,
     platform,
-    ballDirection,
+    changeBallDirection,
     setLives }) {
-
-    const requestRef = useRef();
 
     const canvas = canvasRef.current;
 
     const detectColision = () => {
         //hitting right
-        if (ball.x + ball.r >= canvas.width) ballDirection('rightUp', 'leftUp', 'leftDown');
+        if (ball.x + ball.r >= canvas.width) changeBallDirection('rightUp', 'leftUp', 'leftDown');
         //hitting left
-        else if (ball.x <= ball.r) ballDirection('leftUp', 'rightUp', 'rightDown');
+        else if (ball.x <= ball.r) changeBallDirection('leftUp', 'rightUp', 'rightDown');
         //hitting top
-        else if (ball.y <= ball.r) ballDirection('rightUp', 'rightDown', 'leftDown');
+        else if (ball.y <= ball.r) changeBallDirection('rightUp', 'rightDown', 'leftDown');
         //hitting bottom
         else if (ball.y + ball.r >= canvas.height) {
-            ballDirection('rightDown', 'rightUp', 'leftUp');
+            changeBallDirection('rightDown', 'rightUp', 'leftUp');
             setLives(lives => lives - 1);
         }
         //hitting platform
         if (ball.y + ball.r >= canvas.height - platform.h &&
             ball.x + ball.r  >= platform.x &&
             ball.x <= platform.x + platform.w) {
-            ballDirection('rightDown', 'rightUp', 'leftUp');
+            changeBallDirection('rightDown', 'rightUp', 'leftUp');
         }
 
     };

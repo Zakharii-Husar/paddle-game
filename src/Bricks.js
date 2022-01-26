@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 
 const Bricks = ({
@@ -6,7 +6,7 @@ const Bricks = ({
     setBricksLeft,
     brickArr,
     ball,
-    ballDirection,
+    changeBallDirection,
     rows,
     columns }) => {
 
@@ -36,14 +36,14 @@ const Bricks = ({
                     if (ball.x + ball.r === this.x &&
                         ball.y + ball.r >= this.y &&
                         ball.y <= this.y + this.h) {
-                        ballDirection('rightUp', 'leftUp', 'leftDown');
+                        changeBallDirection('rightUp', 'leftUp', 'leftDown');
                         deleteBrick(arr, index);
                     }
                     //hitting right of a brick
                     else if (ball.x === this.x + this.w &&
                         ball.y + ball.r >= this.y &&
                         ball.y <= this.y + this.h) {
-                        ballDirection('leftUp', 'rightUp', 'rightDown');
+                        changeBallDirection('leftUp', 'rightUp', 'rightDown');
                         deleteBrick(arr, index);
 
                     }
@@ -51,14 +51,14 @@ const Bricks = ({
                     else if (ball.y + ball.r === this.y &&
                         ball.x + ball.r >= this.x &&
                         ball.x <= this.x + this.w) {
-                        ballDirection('rightDown', 'rightUp', 'leftUp');
+                        changeBallDirection('rightDown', 'rightUp', 'leftUp');
                         deleteBrick(arr, index);
                     }
                     //hitting bottom of a brick
                     else if (ball.y === this.y + this.h &&
                         ball.x + ball.r >= this.x &&
                         ball.x <= this.x + this.w) {
-                        ballDirection('rightUp', 'rightDown', 'leftDown');
+                        changeBallDirection('rightUp', 'rightDown', 'leftDown');
                         deleteBrick(arr, index);
                     }
                 }
