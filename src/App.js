@@ -6,6 +6,7 @@ import Ball from './Ball';
 import Bricks from './Bricks';
 import heart from './heart.png'
 import background from './background.jpg'
+import rotate from './rotate.gif'
 
 
 
@@ -34,6 +35,7 @@ const App = () => {
 
     const [gameState, setGameState] = useState(false);
     const [won, setWon] = useState(false);
+    const [rotateAnimation, setRotateAnimation] = useState(false);
     const [rows, setRows] = useState(4);
     const [lives, setLives] = useState(3);
     const [level, setLevel] = useState(1);
@@ -49,10 +51,14 @@ const App = () => {
     }
 
     const startGame = () => {
-        fullScreen();
-        setLives(3);
-        setGameState(true);
-        setWon(false);
+        setRotateAnimation(true);
+        setTimeout(() => {
+            setRotateAnimation(false);
+            fullScreen();
+            setLives(3);
+            setGameState(true);
+            setWon(false);
+        }, 2000);
     };
 
     const nextLevel = () => {
@@ -117,9 +123,13 @@ const App = () => {
             style={gameState ? { display: 'none' } : { display: 'flex' }}
             className='background' />
 
+        <img src={rotate}
+        style={rotateAnimation ? {display: 'flex'} : {display: 'none'}}
+        className='rotate' />
+
         <div
             className='menu'
-            style={!gameState ? { display: "flex" } : { display: "none" }} >
+            style={!gameState && !rotateAnimation ? { display: "flex" } : { display: "none" }} >
             <div className='level'>{notification}</div>
             <button className='start' onClick={startGame} onTouchStart={startGame} onTouchEnd={startGame}> {startBtnText} </button>
         </div >
