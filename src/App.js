@@ -45,7 +45,6 @@ const App = () => {
     const fullScreen = () => {
         containerRef.current.requestFullscreen();
         window.screen.orientation.lock('landscape-primary');
-        console.log(window.screen.orientation.type);
     }
 
     const startGame = () => {
@@ -140,7 +139,7 @@ const App = () => {
                     style={lives > 2 ? { display: 'inline' } : { display: 'none' }} src={heart} />
             </div>
 
-            <div>Level {level}/4</div>
+            <div>Level {window.screen.orientation.type}/4</div>
             <div>Left {bricksLeft}/{rows * columns}</div>
         </div>
 
