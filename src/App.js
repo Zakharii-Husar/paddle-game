@@ -44,6 +44,7 @@ const App = () => {
 
     const fullScreen = () => {
         containerRef.current.requestFullscreen();
+        window.screen.lockOrientation('landscape-primary');
         window.screen.orientation.lock('landscape-primary');
     }
 
@@ -139,7 +140,7 @@ const App = () => {
                     style={lives > 2 ? { display: 'inline' } : { display: 'none' }} src={heart} />
             </div>
 
-            <div>Level {window.screen.orientation.type}/4</div>
+            <div>Level {level}/4</div>
             <div>Left {bricksLeft}/{rows * columns}</div>
         </div>
 
