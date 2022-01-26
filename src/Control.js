@@ -68,8 +68,11 @@ const Control = ({
         onTouchEnd={() => { move.current = null; setButtonHighLight(null) }} />
 
       <img
+        style={window.screen.orientation.type === 'landscape' ||
+        window.screen.orientation.type === 'landscape-primary'? {display: 'none'} :
+        {display: 'flex'}}
         src={fullscreenPic}
-        onTouchStart={()=>fullScreen()} />
+        onTouchStart={() => fullScreen()} />
       <img
         style={buttonHighLight === 'right' ? { backgroundColor: 'red' } : { backgroundColor: 'black' }}
         alt='>>>'
