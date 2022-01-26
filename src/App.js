@@ -42,8 +42,12 @@ const App = () => {
     const [bricksLeft, setBricksLeft] = useState(rows * columns);
 
     const fullScreen = () => {
-        containerRef.current.requestFullscreen();
-        window.screen.orientation.lock('landscape-primary');
+        containerRef.current.requestFullscreen().then(
+            window.screen.orientation.lock('landscape-primary')
+        )
+        .catch(
+            error => console.log(error)
+        )
     }
 
     const startGame = () => {
