@@ -44,7 +44,7 @@ const App = () => {
 
     const fullScreen = () => {
         containerRef.current.requestFullscreen();
-        //window.screen.orientation.lock('landscape-primary');
+        window.screen.orientation.lock('landscape-primary');
     }
 
     const startGame = () => {
