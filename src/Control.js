@@ -69,12 +69,15 @@ const Control = ({
 
       <img
         src={fullscreenPic}
-        onClick={fullScreen} />
+        onTouchStart={()=>fullScreen()} />
       <img
         style={buttonHighLight === 'right' ? { backgroundColor: 'red' } : { backgroundColor: 'black' }}
         alt='>>>'
         src={right}
-        onTouchStart={() => { move.current = 'right'; setButtonHighLight('right') }}
+        onTouchStart={() => {
+          move.current = 'right';
+          setButtonHighLight('right');
+        }}
         onTouchEnd={() => { move.current = null; setButtonHighLight(null) }} />
     </div>
   );
