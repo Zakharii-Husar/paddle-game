@@ -41,8 +41,6 @@ const App = () => {
     const [level, setLevel] = useState(1);
     const [bricksLeft, setBricksLeft] = useState(rows * columns);
 
-    //git test
-
     const containerRef = useRef();
     const canvasRef = useRef(null);
     const requestRef = useRef();
