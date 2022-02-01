@@ -14,6 +14,7 @@ const App = () => {
 
     //GIT TEST #3
     //3
+    console.log('reducer');
 
     const platform = {
         x: 120,
