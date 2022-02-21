@@ -12,9 +12,6 @@ import rotate from './rotate.gif'
 
 const App = () => {
 
-    //GIT TEST #2
-    console.log('main');
-
     const platform = {
         x: 120,
         y: 0,
