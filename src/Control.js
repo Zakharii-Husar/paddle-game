@@ -10,8 +10,8 @@ const Control = ({
   platform,
   fullScreen }) => {
 
-  const IS_IN_LANDSCAPE_MODE = window.screen.orientation.type === 'landscape' ||
-  window.screen.orientation.type === 'landscape-primary' || false;
+  const IS_IN_LANDSCAPE_MODE = window.screen?.orientation?.type === 'landscape' ||
+  window.screen?.orientation?.type === 'landscape-primary' || false;
 
   const canvas = canvasRef.current;
   
