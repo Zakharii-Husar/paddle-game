@@ -46,7 +46,7 @@ const App = () => {
     const requestRef = useRef();
 
     const fullScreen = () => {
-        containerRef.current.requestFullscreen()
+        containerRef.current?.requestFullscreen()
         window.screen.orientation.lock('landscape-primary');
     }
 
