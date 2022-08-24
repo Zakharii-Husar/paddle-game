@@ -10,6 +10,9 @@ const Control = ({
   platform,
   fullScreen }) => {
 
+  const IS_IN_LANDSCAPE_MODE = window.screen.orientation.type === 'landscape' ||
+  window.screen.orientation.type === 'landscape-primary' || false;
+
   const canvas = canvasRef.current;
   
   const move = useRef(null);
@@ -66,8 +69,7 @@ const Control = ({
         onTouchEnd={() => { move.current = null; setButtonHighLight(null) }} />
 
       <img
-        style={window.screen.orientation.type === 'landscape' ||
-        window.screen.orientation.type === 'landscape-primary'? {display: 'none'} :
+        style={IS_IN_LANDSCAPE_MODE ? {display: 'none'} :
         {display: 'flex'}}
         src={fullscreenPic}
         onTouchStart={() => fullScreen()} />
